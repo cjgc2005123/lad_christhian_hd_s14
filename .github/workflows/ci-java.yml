@@ -1,0 +1,63 @@
+
+name: CI y CD - Frontend Java
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Compilar y probar Java
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v6
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Compilar y ejecutar JUnit
+        run: mvn --batch-mode clean verify
+
+  cd:
+    name: Publicar frontend en GitHub Pages
+    needs: ci
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v6
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir pagina estatica
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: src/main/resources/static
+
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+

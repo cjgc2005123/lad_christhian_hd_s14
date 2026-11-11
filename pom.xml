@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Paso A: identidad y configuración base del proyecto -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.7</version>
+        <relativePath/>
+    </parent>
+    <groupId>edu.laboratorio</groupId>
+    <artifactId>frontend-java-ci-cd</artifactId>
+    <version>1.0.0</version>
+    <name>Frontend Java CI/CD</name>
+    <description>Una pagina index con Maven y GitHub Actions</description>
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+
+    <!-- Paso B: bibliotecas de la aplicacion y de testing -->
+    <dependencies>
+        <!-- Servidor HTTP embebido para servir index.html -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- JUnit + herramientas de pruebas web: SOLO test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Paso C: plugin para generar JAR autoejecutable -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

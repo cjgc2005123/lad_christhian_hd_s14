@@ -1,0 +1,23 @@
+# Maven: bytecode, JAR e informes generados
+/target/
+*.class
+
+# Variables y credenciales locales (nunca subir secretos)
+.env
+.env.*
+!.env.example
+*.key
+gha-creds-*.json
+
+# Archivos personales del editor
+.vscode/
+.idea/
+*.iml
+
+# Registros y temporales
+*.log
+*.tmp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
